@@ -11,3 +11,5 @@ const textInputDecoration = InputDecoration(
     borderSide: BorderSide(color: Colors.pink, width: 2.0),
   ),
 );
+
+final barColor = const Color(0xFF17B978);

@@ -71,7 +71,7 @@ class _SettingsFormState extends State<SettingsForm> {
                         setState(() => _currentStrength = val.round()),
                   ),
                   RaisedButton(
-                      color: Colors.pink[400],
+                      color: barColor,
                       child: Text(
                         'Update',
                         style: TextStyle(color: Colors.white),
