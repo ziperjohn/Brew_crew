@@ -3,15 +3,15 @@ import 'package:brew_crew/shared/constants.dart';
 import 'package:brew_crew/shared/loading.dart';
 import 'package:flutter/material.dart';
 
-class SignIn extends StatefulWidget {
+class Register extends StatefulWidget {
   final Function toggleView;
-  SignIn({this.toggleView});
+  Register({this.toggleView});
 
   @override
-  _SignInState createState() => _SignInState();
+  _RegisterState createState() => _RegisterState();
 }
 
-class _SignInState extends State<SignIn> {
+class _RegisterState extends State<Register> {
   final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
   String error = '';
@@ -30,11 +30,11 @@ class _SignInState extends State<SignIn> {
             appBar: AppBar(
               backgroundColor: Colors.brown[400],
               elevation: 0.0,
-              title: Text('Sign in to Brew Crew'),
+              title: Text('Sign up to Brew Crew'),
               actions: <Widget>[
                 FlatButton.icon(
                   icon: Icon(Icons.person),
-                  label: Text('Register'),
+                  label: Text('Sign In'),
                   onPressed: () => widget.toggleView(),
                 ),
               ],
@@ -56,9 +56,9 @@ class _SignInState extends State<SignIn> {
                     ),
                     SizedBox(height: 20.0),
                     TextFormField(
-                      obscureText: true,
                       decoration:
                           textInputDecoration.copyWith(hintText: 'password'),
+                      obscureText: true,
                       validator: (val) => val.length < 6
                           ? 'Enter a password 6+ chars long'
                           : null,
@@ -70,19 +70,18 @@ class _SignInState extends State<SignIn> {
                     RaisedButton(
                         color: Colors.pink[400],
                         child: Text(
-                          'Sign In',
+                          'Register',
                           style: TextStyle(color: Colors.white),
                         ),
                         onPressed: () async {
                           if (_formKey.currentState.validate()) {
                             setState(() => loading = true);
                             dynamic result = await _auth
-                                .signInWithEmailAndPassword(email, password);
+                                .registerWithEmailAndPassword(email, password);
                             if (result == null) {
                               setState(() {
                                 loading = false;
-                                error =
-                                    'Could not sign in with those credentials';
+                                error = 'Please supply a valid email';
                               });
                             }
                           }
@@ -91,7 +90,7 @@ class _SignInState extends State<SignIn> {
                     Text(
                       error,
                       style: TextStyle(color: Colors.red, fontSize: 14.0),
-                    ),
+                    )
                   ],
                 ),
               ),
